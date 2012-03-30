@@ -1,0 +1,14 @@
+div.container
+{
+
+    div#C
+    {
+        position:relative;
+        float:left;
+        z-index:10;
+        margin-top:20px;
+        min-height:400px;
+        width:100%;
+    }
+    
+}

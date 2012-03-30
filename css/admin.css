@@ -1,0 +1,139 @@
+ul.adminList
+{
+    float:left;
+    width:100%;
+    padding: 0;
+    
+    li.adminItem
+    {
+        background-color:#fff;
+        list-style-type:none;
+        float:left;
+        width:98%;
+        margin-top:10px;
+        margin-left:5px;
+        border:1px solid #eee;
+        border-bottom:1px solid #ddd;
+        .borderRadius(5px);
+        .boxShadow(0 0 2px #eee);
+        
+        a
+        {
+            float:left;
+            color:#555;
+            height:30px;
+            line-height:25px;
+            text-indent:10px;
+            
+            &:hover
+            {
+                color:#000;
+            }
+        }
+        .icon
+        {
+            float:right;
+            height:16px;
+            margin-right:3px;
+            margin-top:6px;
+        }
+        .move
+        {
+            cursor:move;
+        }
+    }
+}
+
+
+
+#C div.adminScaffold
+{
+    float:left;
+    width:100%;
+
+    div.fieldGroup
+    {
+        float:left;
+        width:100%;
+        padding-top:2px;
+        padding-bottom:3px;
+        padding-left:6px;
+
+        div.field
+        {
+            padding-top:6px;
+            width:146px;
+            margin-right:15px;
+
+            input:-moz-placeholder
+            {  
+                color:#aaa;
+            }  
+
+        }
+        div.fieldCheckbox
+        {
+            margin-bottom: 2px;
+            padding-top: 0;
+            width: 90px;
+        }
+        div.customCheckbox
+        {
+            width:103px;
+            padding-top:3px;
+        }
+        div.checkboxGroup
+        {
+            float:right;
+            width:450px;
+        }
+        div.inputGroup
+        {
+            float:left;
+            width:485px;
+        }
+    }
+
+    div.fieldGroup:nth-child(even)
+    {
+        background-color:#eee;
+        border-bottom:1px dotted #ccc;
+    }
+
+
+    div.fieldHalf
+    {
+        float:left;
+        width:100%;
+        margin-bottom:10px;
+
+        div.field
+        {
+            width:24%;
+            margin-right:15px;
+        }
+    }
+    a.btn-success
+    {
+        margin-bottom:17px;
+        float: left;
+        margin-top: 15px;
+    }
+
+}
+
+
+
+
+div.adminPanel
+{
+    float:left;
+    width:300px;
+    
+    font-size:16px;
+    
+    input
+    {
+        margin-top:18px;
+    }
+}

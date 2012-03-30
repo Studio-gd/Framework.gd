@@ -1,0 +1,100 @@
+/* CSS VAR 
+    @exemple:#fff;
+*/
+@selectionBgColor:#286b9f;
+@selectionColor:#fff;
+
+html{background-color:#fff}
+body
+{
+    height:100%;
+    background-color:#fff;
+    overflow-x:hidden;
+    font-size:13px;
+}
+
+
+body, select, input, textarea
+{
+  color: #444;
+  /* set your base font here, to apply evenly */
+  font-family:"Lucida Grande",Verdana,Arial,sans-serif;
+}
+
+
+a
+{
+    .transition();
+    outline:0;
+    text-decoration:none;
+    cursor:pointer;
+}
+a.btn
+{
+    .transition(none);
+}
+
+
+/* always force a scrollbar in non-IE */ 
+html { overflow-y: scroll; }
+
+/* hand cursor on clickable input elements */
+label, input[type=button], input[type=submit], button { cursor: pointer; }
+
+/* webkit browsers add a 2px margin outside the chrome of form elements */  
+button, input, select, textarea { margin: 0; }
+
+/* align checkboxes, radios, text inputs with their label
+   by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+input[type="radio"] { vertical-align: text-bottom; }
+input[type="checkbox"] { vertical-align: bottom; }
+.ie7 input[type="checkbox"] { vertical-align: baseline; }
+.ie6 input { vertical-align: text-bottom; }
+
+/* colors for form validity */
+input:valid, textarea:valid   {  }
+input:invalid, textarea:invalid { 
+      border-radius: 1px;
+    -moz-box-shadow: 0 0 5px red; 
+ -webkit-box-shadow: 0 0 5px red; 
+         box-shadow: 0 0 5px red;
+}
+.no-boxshadow input:invalid, 
+.no-boxshadow textarea:invalid { background-color: #f0dddd; }
+
+
+/* These selection declarations have to be separate.
+   No text-shadow: twitter.com/miketaylr/status/12228805301 
+   Also: hot pink. */
+::-moz-selection{ background: @selectionBgColor; color:@selectionColor; text-shadow: none; }
+::selection { background:@selectionBgColor; color:@selectionColor; text-shadow: none; }
+
+/*  j.mp/webkit-tap-highlight-color */
+a:link { -webkit-tap-highlight-color: @selectionBgColor; } 
+
+/* for image replacement */
+.ir
+{ 
+display: block;
+text-indent: 100%;
+white-space: nowrap;
+overflow: hidden;
+}
+
+div#loading
+{
+    background-image:url(../img/loading.gif);
+    background-repeat:no-repeat;
+    display:none;
+    height:17px;
+    opacity:0.8;
+    position:absolute;
+    right:6px;
+    top:7px;
+    width:17px;
+    z-index:10;
+}
+
+
+.h,#T{display:none}
+

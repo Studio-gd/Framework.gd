@@ -1,0 +1,41 @@
+form.search
+{
+    position:relative;
+    float:left;
+    width:auto;
+    margin-left:20px;
+    
+    input.q
+    {
+        color:#535353;
+        padding-right:26px;
+        width:100px; 
+
+        &:hover
+        {
+            color:#000;
+        }
+
+        &:focus
+        {
+            color:#000;
+            padding-right:26px;
+            width:195px;
+        }
+    }
+
+    div.sf
+    {
+        background-image:url(../img/icon/s.png);
+        background-position:4px 2px;
+        background-repeat:no-repeat;
+        border-left:1px solid #999;
+        color:#535353;
+        cursor:pointer;
+        height:20px;
+        position:absolute;
+        right:9px;
+        top:5px;
+        width:17px;
+    }
+}

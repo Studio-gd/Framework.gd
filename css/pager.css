@@ -1,0 +1,21 @@
+div.pagination
+{
+    background-color:rgba(200,200,200,0.12);
+    height:41px;
+    margin-top:30px;
+    padding-top:5px;
+    float:left;
+    text-align:center;
+    width:100%;
+    .borderRadius(6px);
+
+    a
+    {
+        background-color:#fff;
+    }
+    li.active a
+    {
+        color:#000;
+    }
+}
+

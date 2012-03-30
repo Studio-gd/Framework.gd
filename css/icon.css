@@ -1,0 +1,32 @@
+.icon
+{
+    padding-left:20px;
+    float:left;
+    cursor:pointer;
+    background-repeat:no-repeat;
+    min-height:20px;
+}
+.delete
+{
+    background-image:url(../img/icon/cross.png);
+}
+.edit
+{
+    background-image:url(../img/icon/page_white_edit.png);
+}
+.lockEdit
+{
+    background-image:url(../img/icon/lock_edit.png);
+}
+.send
+{
+    background-image:url(../img/icon/email_go.png);
+}
+.help
+{
+    background-image:url(../img/icon/help.png);
+}
+.move
+{
+    background-image:url(../img/icon/arrow_move.png);
+}

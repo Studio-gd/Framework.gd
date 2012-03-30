@@ -1,0 +1,1 @@
+<?php include'lib/config.php';include'bootstrap.php';

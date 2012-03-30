@@ -1,0 +1,9 @@
+div.error
+{
+    float:left;
+    margin:10px;
+    color:#622;
+    text-indent:22px;
+    background-image:url(../img/iconic/red/denied_16x16.png);
+    background-repeat:no-repeat;
+}

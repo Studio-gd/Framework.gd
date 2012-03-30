@@ -1,0 +1,41 @@
+.tipsy
+{
+    padding: 5px;
+    font-size: 11px;
+    background-repeat: no-repeat;
+    background-image: url(../img/tipsy.gif);
+}
+.tipsy-inner
+{
+    padding:4px 5px;
+    background-color:#000;
+    color:#fff;
+    max-width:200px;
+    text-align:center;
+    .borderRadius(5px);
+    border:1px solid #666;
+    border-bottom:0;
+}
+.tipsy-inner
+{
+    .borderRadius(3px);
+}
+
+.tipsy-south
+{
+    background-position: bottom center;
+}
+/*
+.tipsy-north
+{
+    background-position: top center;
+}
+.tipsy-east
+{
+    background-position: right center;
+}
+.tipsy-west
+{
+    background-position: left center;
+}
+*/

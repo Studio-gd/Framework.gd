@@ -1,0 +1,79 @@
+div.userList
+{
+    float:left;
+    width:100%;
+    a
+    {
+        float:left;
+        width:100%;
+        margin-bottom:12px;
+    }
+    div.userItem
+    {
+        position:relative;
+        float:left;
+        padding:10px;
+        margin-bottom:10px;
+        margin-right:10px;
+        border: 1px solid #999;
+        
+        a.delete
+        {
+            position:absolute;
+            top:-6px;
+            right:-6px;
+            width:16px;
+            height:16px;
+            display:none;
+        }
+    }
+}
+
+
+
+div.userEdit
+{
+    float:left;
+    width:450px;
+}
+form a.deleteAvatar
+{
+    color:#666;
+    margin-left:15px;
+    margin-top:7px;
+}
+form a.deleteAvatar:hover
+{
+    color:#f00;
+}
+form a.editPwd
+{
+    color:#666;
+    margin-top:14px;
+    margin-bottom:4px;
+    margin-left:2px;
+    width:100%;
+}
+form a.editPwd:hover
+{
+    color:#000;
+}
+form div.editPwd
+{
+    float:left;
+    width:100%;
+    display:none;
+}
+form img.avatar
+{
+    height:30px;
+    float:left;
+}
+
+form a.recover
+{
+    float: right;
+    font-size: 11px;
+    margin-left: 17px;
+    margin-top: 19px;
+}

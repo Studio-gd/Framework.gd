@@ -1,0 +1,1 @@
+<?php class Ajax_Lang{static function set(){IB_Lang::getInstance()->setLang($_POST['lang']);}}

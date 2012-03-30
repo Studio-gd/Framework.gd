@@ -1,0 +1,141 @@
+div.translate_title
+{
+    float:left;
+    width:100%;
+    margin-top:8px;
+
+    h3,h4
+    {
+        float:left;
+        width:44%;
+        font-size:16px;
+        font-weight:normal;
+        color:#999;
+        margin-left:36px;
+    }
+}
+
+div.translate_item
+{
+    float:left;
+    width:100%;
+    margin-top:4px;
+    margin-bottom:10px;
+
+    div.to_translate
+    {
+        float:left;
+        width:42%;
+        margin:10px;
+        margin-left:20px;
+        background-color:#ddd;
+        padding:10px;
+        padding-bottom:13px;
+        line-height:18px;
+        font-size:13px;
+        color:#000;
+        min-height:30px;
+        position:relative;
+
+        a
+        {
+            position:absolute;
+            bottom:-12px;
+            left:0;
+            font-size:9px;
+            color:red !important;
+            display:none;
+            cursor:pointer;
+        }
+        b
+        {
+            color:#bbb;
+            font-size:9px;
+            font-weight:normal;
+            left:1px;
+            position:absolute;
+            top:-14px;
+        }
+        a.edit
+        {
+            left:33px;
+            height:16px;
+            width:19px;
+            bottom:-13px;
+            color:#999 !important;
+        }
+        img
+        {
+            position:absolute;
+            right:-25px;
+            top:11px;
+        }
+    }
+    div.to_translate:hover a
+    {
+        display:block;
+    }
+    div.translation
+    {
+        float:left;
+        width:42%;
+        margin:10px;
+        margin-left:26px;
+        font-size:13px;
+        color:#000;
+        min-height:40px;
+
+        textarea
+        {
+            height:100%;
+        }
+        textarea.notranslated
+        {
+            border: 1px solid red;
+        }
+    }
+}
+
+div.admin_translate_list_widget
+{
+    float:left;
+    width:100%;
+
+    form.rjs
+    {
+        float:left;
+        width:100%;
+        margin:0;
+        padding:0;
+    }
+    div#dont_forget
+    {
+        background-image:url(../img/icon/arrow_left.png);
+        background-position:6px 0;
+        background-repeat:no-repeat;
+        color:#C55630;
+        float:left;
+        font-size:12px;
+        margin-top:19px;
+        padding-left:30px;
+        display:none;
+    }
+}
+div#C form.srch_trslt
+{
+    float: right;
+    margin: 0 1px 0 0 !important;
+    position: relative;
+}
+div.adminMenu img.add_key,
+div.adminMenu img.add_lang
+{
+    float:right;
+    cursor:pointer;
+    margin-right:48px;
+    margin-top:6px;
+}
+div.adminMenu img.add_lang
+{
+    margin-right:4px;
+}

@@ -1,0 +1,122 @@
+div.adminMenu
+{
+    float:left;
+    background-color:#ddd;
+    height:30px;
+    left:25px;
+    width:100%;
+    .borderRadius(5px);
+    z-index:5;
+    color:#222;
+    font-size:14px;
+    font-weight:normal;
+    white-space:nowrap;
+    margin-bottom:10px;
+    text-indent:6px;
+
+    b.right_adminMenu
+    {
+        opacity:0.6;
+        position:absolute;
+        right:0;
+        top:1px;
+    }
+    b.right_adminMenu a
+    {
+        float:right;
+    }
+    b.right_adminMenu:hover
+    {
+        opacity:1;
+    }
+    i,b
+    {
+        float:left;
+        font-size:14px;
+        font-weight:normal;
+        height:28px;
+        line-height:22px;
+        padding-left:4px;
+        padding-right:4px;
+        padding-top:3px;
+        position:relative;
+    }
+    i
+    {
+        color:#666;
+        font-size:11px;
+        font-style:normal;
+        padding-left:7px;
+    }
+    b span
+    {
+        display:none;
+        font-size:15px;
+        left:0;
+        position:absolute;
+        top:28px;
+        z-index:100;
+        background-color:#ccc;
+        padding:0;
+    }
+    b.filter span
+    {
+        min-width:100%;
+        padding-bottom:6px;
+        
+        border-bottom-left-radius:6px;
+        -moz-border-radius-bottomleft:6px;
+        -webkit-border-bottom-left-radius:6px;
+        
+        border-bottom-right-radius:6px;
+        -moz-border-radius-bottomright:6px;
+        -webkit-border-bottom-right-radius:6px;
+    }
+
+    b.filter.long span
+    {
+        min-width:115px;
+        max-height:230px;
+        overflow:auto;
+        overflow-x:hidden;
+    }
+
+    b.filter
+    {
+        cursor:pointer;
+        line-height:22px;
+    }
+
+    b.filter span a.tool
+    {
+        float:none;
+        width:auto;
+        margin:0;
+        padding-left:28px !important;
+        background-position:5px 50%;
+    }
+
+    b span a,
+    b.filter:hover span
+    {
+        display:block !important;
+    }
+    b.filter:hover
+    {
+        background-color:#ccc;
+        background-image:none;
+    }
+    b span a
+    {
+        padding:3px;
+        padding-left:6px;
+        padding-right:6px;
+        color:#111;
+        font-size:12px;
+    }
+    b span a:hover
+    {
+        color:#000;
+        background-color:#bbb;
+    }
+}

@@ -1,0 +1,155 @@
+
+form
+{
+    label:first-letter
+    {
+        text-transform:uppercase;
+    }
+    label span
+    {
+        font-size:11px;
+        color:#999;
+    }
+    label.error
+    {
+        color:red;
+    }
+    div.field
+    {
+        position:relative;
+        float:left;
+        width:100%;
+        margin-bottom:15px;
+    }
+    div.groupBtn
+    {
+        float:left;
+        width:100%;
+
+        div.field
+        {
+            width:auto;
+        }
+    }
+    input,
+    textarea
+    {
+        width:99%;
+        .transition();
+
+        &.error
+        {
+            border-color:red;
+
+            &:focus
+            {
+                .boxShadow(none);
+            }
+        }
+    }
+
+    textarea.editor
+    {
+        height:400px;
+    }
+    button
+    {
+        margin-top:15px;
+    }
+    button.btn-primary
+    {
+        margin-right:15px;
+    }
+    button.loading img
+    {
+        margin-right: 8px;
+        margin-top: -2px;
+    }
+
+    input.calendar
+    {
+        background-image:url(../img/icon/calendar.png);
+        background-repeat:no-repeat;
+        background-position:3px 4px;
+        padding-left:23px;
+        width:83px;
+    }
+
+    div.charLeft
+    {
+        display:none;
+        color:#555;
+        .borderRadius(6px);
+        padding:4px;
+        padding-top:2px;
+        padding-bottom:2px;
+        background-color:#eee;
+        top:3px;
+        right:-4px;
+        position:absolute;
+        font-weight:bold;
+        font-size:12px;
+        
+        &:hover
+        {
+            color:#000;
+        }
+    }
+}
+
+
+
+div.customCheckbox
+{
+    float:left;
+    width:100%;
+    margin-bottom:2px;
+    margin-top:5px;
+    
+    b
+    {
+        .transition();
+        margin-left:3px;
+        float:left;
+        font-weight:normal;
+        width:12px;
+        height:10px;
+        padding-bottom:2px;
+        border:1px solid #666;
+        background-color:#eee;
+        color:#000;
+        text-align:center;
+        cursor:pointer;
+        .boxShadow(0 0 3px #aaa);
+        .borderRadius(3px);
+        background:-moz-linear-gradient(top, #fff, #eee);
+        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#eee));
+        opacity:0.8;
+        line-height:11px;
+        font-size:10px;
+    }
+    span
+    {
+        .transition();
+        color:#555;
+        cursor:pointer;
+        float:left;
+        line-height:14px;
+        margin-left:6px;
+    }
+
+    &:hover,
+    &.selected
+    {
+        b
+        {
+            border-color:#000;
+            .boxShadow(0 0 3px #888);
+            opacity:1;
+        }
+        span
+        {
+            color:#000;
+        }
+    }
+}
