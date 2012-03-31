@@ -1,7 +1,7 @@
 <?php $N = 'framework';
 
 define('URL',"http://$N/");
-define('PATH','/Users/Studiogd/git/frameworkgd/');
+define('PATH','/path/to/the/framework/');
 
 define('DBHOST','localhost');
 define('DBLOGIN','root');
@@ -27,7 +27,7 @@ define('STATS',0); # google analytics code, ex : UA-16879056-1
 define('KEYWORDS',0);
 define('DESCRIPTION',0);
 
-define('EMAIL_FROM','"Studio.gd" <noReply@studio.gd>');
+define('EMAIL_FROM','"Studio.gd" <contact@studio.gd>');
 
 define('MULTI_LANGUE',false);
 define('DEFAULT_LANG','fr');
@@ -47,7 +47,7 @@ if(LOG_ERROR) define('LOG_ERROR_PATH',PATH.UPLOAD_FOLDER.LOG_ERROR);
 define('DEBUG',0);
 if(DEBUG) define('TIME',time());
 
-define('SALT','!÷53_)(*&^58%$#)?');
+define('SALT','somesalt...');
 
 set_include_path(PATH.'lib/');
 
