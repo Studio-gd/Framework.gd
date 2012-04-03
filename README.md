@@ -1,4 +1,4 @@
-# Le framework open source de Studio.gd
+# Le framework open source de [Studio.gd](http://Studio.gd/)
 
 Framework.gd a été développé par nos soins et a évolué depuis sa création en 2006.
 Il est Open Source et chacun peut en consulter librement le code. Il est l’addition de nombreuses
