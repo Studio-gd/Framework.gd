@@ -25,3 +25,6 @@ référencement naturel, recherche, Rss, Json …).
 
 Framework.gd vous permet de vous connecter rapidement
 à des services Web comme Google maps, Twitter, Facebook, Amazon s3, etc. 
+
+
+[En savoir plus](http://Studio.gd/framework)
