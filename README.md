@@ -6,6 +6,8 @@ années d’expérience sur de multiples autres Framework et CMS dont il tire le
 
 ### UN ACCOMPAGNEMENT SUR MESURE, PRÉCIS POUR UNE AUTONOMIE PARFAITE 
 
+***
+
 #### 1. Une navigation optimale
 
 Une attention toute particulière a été portée sur les performances,
@@ -26,5 +28,6 @@ référencement naturel, recherche, Rss, Json …).
 Framework.gd vous permet de vous connecter rapidement
 à des services Web comme Google maps, Twitter, Facebook, Amazon s3, etc. 
 
+***
 
 ### [En savoir plus »](http://Studio.gd/framework)
