@@ -4,7 +4,7 @@ Framework.gd a été développé par nos soins et a évolué depuis sa création
 Il est Open Source et chacun peut en consulter librement le code. Il est l’addition de nombreuses
 années d’expérience sur de multiples autres Framework et CMS dont il tire le meilleur. 
 
-### UN ACCOMPAGNEMENT SUR MESURE, PRÉCIS POUR UNE AUTONOMIE PARFAITE 
+### UN ACCOMPAGNEMENT SUR MESURE ET PRÉCIS POUR UNE AUTONOMIE PARFAITE 
 
 ***
 
