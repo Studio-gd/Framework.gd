@@ -10,7 +10,7 @@ div#TB_window
     left:50%;
     background-color:rgba(0,0,0,0.07);
     zoom:1;
-    .borderRadius(10px);
+    .border-radius(10px);
     
     #TB_border
     {
@@ -20,8 +20,8 @@ div#TB_window
         width:100%;
         height:100%;
         border:4px solid #444;
-        .borderRadius(11px);
-        .boxShadow(0 0 3px #666);
+        .border-radius(11px);
+        .box-shadow(0 0 3px #666);
         
         a
         {

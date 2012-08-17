@@ -43,13 +43,11 @@ $(function()
     {
         'User_logout'.ajax('',function()
         {
-            $.delCookie('ib');
+            $.delCookie('i');
             refresh();
         });
     });
 
-    //document.body.style.display = 'block';
-    
     if(LOGGEDIN)
     {
         
@@ -99,13 +97,19 @@ $(function()
         return false;
     });
 
+    if(window['CFInstall'])
+    {
+        CFInstall.check({
+         mode: "overlay",
+         destination: document.location.href
+        });
+    }
+    
 
-    CFInstall.check({
-     mode: "overlay",
-     destination: "http://www.waikiki.com"
-   });
-
-    //console.log('Studio.gd - graphisme & développement web');
+    if(window.console)
+    {
+        console.log('Studio.gd - graphisme & développement web');
+    }
 });
 
 $.stats = function()

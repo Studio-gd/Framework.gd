@@ -10,14 +10,13 @@ $content = '<form action="a=User_login" id="login">'.
 
 '<h2>'.__('Sign in').$register.'</h2>'.
 
-IB_Form_Input::create('username')
-          ->label(__('Login').' '.__('or').' '.strtolower(__('Email')))
-          ->validate('usernameOrEmail')
+IB_Form_Input::create('email')
+          ->label('Email')
+          ->validate('email')
           ->get().
 
 IB_Form_Input::create('password','password')
           ->label(__('Password'))
-          ->required()
           ->get().
 
 div

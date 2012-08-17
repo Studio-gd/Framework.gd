@@ -31,7 +31,8 @@
       
       if($r=mysql_query($q.' LIMIT 1'))
       {
-          while($d=mysql_fetch_array($r)) return $d[0];
+          $d=mysql_fetch_array($r);
+          return $d[0];
       }
       return false;
   }
@@ -163,7 +164,8 @@
       
       foreach($changes as $field => $v)
       {
-          $query.= "$field = ".(is_numeric($v) && intval($v) == $v ? $v : "'$v'").',';
+          #$query.= "$field = ".(is_numeric($v) && intval($v) == $v ? $v : "'$v'").',';
+          $query.= "$field = '$v'".',';
       }
       
       $query = substr($query, 0, -1);
@@ -187,11 +189,12 @@
       foreach($data as $f => $v)
       {
           $fields .= "$f,";
-          $values .= (is_numeric($v) && intval($v) == $v ? $v : "'$v'").',';
-      }  
-        
-      $fields = substr($fields, 0, -1);
-      $values = substr($values, 0, -1);
+          #$values .= (is_numeric($v) && intval($v) == $v ? $v : "'$v'").',';
+          $values .= "'$v',";
+      }
+      
+      $fields = trim($fields, ',');
+      $values = trim($values, ',');
 
       return $this->query("INSERT INTO $table ($fields) VALUES($values)");
   }

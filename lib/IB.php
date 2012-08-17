@@ -2,7 +2,7 @@
 {
   static $name = false;
   static $data='';
-  static $vars=array('nbPage'=>1,'outputFormat'=>'Html','sp'=>'','title'=>'');
+  static $vars=array('nbPage'=>1,'sp'=>'','title'=>'','outputFormat'=>'Html');
   static $js=array();
 
   static function getInstance(){return new IB();}

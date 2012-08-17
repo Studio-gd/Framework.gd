@@ -4,7 +4,7 @@ $(function()
     {
         var e = $('input',$(this).toggleClass('icon-ok').parent().toggleClass('selected'));
         
-        e[0].value = e.val()=='0' ? 1 : 0;
+        e[0].value = e.val()=='0' || e.val()=='' ? 1 : 0;
         
     });
     $('div.customCheckbox span').live('click', function()
@@ -67,7 +67,11 @@ form.init = function()
     form.autocomplete();
     form.counter();
     form.sortable();
-    $('#C form').validate({});
+    $('form').validate({});
+
+
+    $("select").chosen({allow_single_deselect: true});
+
 };
 
 form.placeholder = function()

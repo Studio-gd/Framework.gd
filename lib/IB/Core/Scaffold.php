@@ -83,7 +83,7 @@ class IB_Core_Scaffold extends IB_DB
         $this->uploads         = $_POST['uploads'];
         $this->calendars       = $_POST['calendars'];
         $this->requires        = $_POST['requires'];
-        $this->editors         = $_POST['editors']; # TODO
+        $this->editors         = $_POST['editors'];
         $this->filters         = $_POST['filters'];
         $this->textareas       = $_POST['textareas'];
         $this->checkboxes      = $_POST['checkboxes'];
@@ -145,7 +145,7 @@ class IB_Core_Scaffold extends IB_DB
         $i=0;
         while($i<999)
         {
-            if(empty($this->fields[$i])) break;
+            if(empty($this->fields[$i])){$i++;continue;}
 
             $r[$i] = array();
 
@@ -166,7 +166,6 @@ class IB_Core_Scaffold extends IB_DB
 
             $i++;
         }
-
         $this->F = $r;
     }
 
@@ -186,7 +185,7 @@ class IB_Core_Scaffold extends IB_DB
         $r = "CREATE TABLE `{$this->table}` 
 (
   `id` int(9) unsigned NOT NULL AUTO_INCREMENT,";
-
+var_dump($this->F);
         foreach($this->F as $v)
         {
             $r.= "
@@ -291,6 +290,7 @@ foreach($this->F as $v)
 
 \$dataSelect = {$ressource}::getInstance()->get(array());
 
+\$texts = \$values = array();
 \$texts[]  = '';
 \$values[] = '';
 
@@ -307,7 +307,6 @@ foreach(\$dataSelect as \$v)
 
         continue;
     }
-
 
                          $typeField = '';
         if($v['upload']) $typeField = ",'file'";
@@ -435,19 +434,21 @@ echo \$fields;
         $d.= "        \$r['created_at'] = now();";
     }
 
+    $d.= "
+        \$this->insert('{$this->table}',\$r);
+    ";
 
     foreach($this->F as $v)
     {
         if($v['upload'])
         {
             $field = $v['field'];
-            $d.= "        \$this->addFiles(\$this->lastInsertId(),'$field');";
+            $d.= "        \$this->addFile(\$this->lastInsertId(),'$field');";
         }
     }
 
 
     $d.= "
-        \$this->insert('{$this->table}',\$r);
     }
     
     function edit(\$id)
@@ -463,7 +464,7 @@ echo \$fields;
             if($v['upload'])
             {
                 $field = $v['field'];
-                $d.= "        \$this->addFiles(\$id,'$field');";
+                $d.= "        \$this->addFile(\$id,'$field');";
             }
         }
 
@@ -704,7 +705,7 @@ echo \$fields;
 
         if($this->namespace)
         {
-            $d.= "IB.{$this->namespace} = {};
+            $d.= "if(!IB['{$this->namespace}']) IB.{$this->namespace} = {};
 IB.{$this->namespace}.init = function()
 {
 };";
@@ -923,7 +924,7 @@ if(\$data{$this->classname})
 
         if($this->js) $this->createJs(true, true);
 
-        if($this->mobile) $this->createMobile(true);
+        if($this->mobile) $this->createMobile();
 
     }
 
@@ -1020,9 +1021,11 @@ $filters = trim($filters,',');
 
 $content.= "
 
-\$pager = new IB_Pager(ITEM_PER_PAGE, \${$this->name}->getTotal(array($filters)));
+\$option = array($filters);
 
-if(\$data{$this->classname} = \${$this->name}->get(array($filters),\$pager->number,\$pager->offset))
+\$pager = new IB_Pager(ITEM_PER_PAGE, \${$this->name}->getTotal(\$option));
+
+if(\$data{$this->classname} = \${$this->name}->get(\$option,\$pager->number,\$pager->offset))
 {
     foreach(\$data{$this->classname} as \$v)
     {
@@ -1307,10 +1310,116 @@ else
 
     }
 
-    function createMobile($simple = false)
+    function createMobile($widget = 'list')
     {
+        $widget = trim(strtolower($widget),'/');
+
+        if($widget==='') return false;
+        
+        $path = '';
+        
+        if(!strpos($widget,'/'))
+        {
+            $file = strtolower($widget);
+        }
+        else
+        {
+            $w = explode('/',$widget.'.php');
+            
+            foreach($w as $fileName)
+            {                
+                if(!strpos($fileName,'.php'))
+                {
+                    $path.= $fileName.'/';
+                }
+                else
+                {
+                    $file = substr($fileName,0,-4);
+                }
+            }
+            
+            $this->createFolder(PATH.'lib/Html/'.$path);
+        }
+        
+        if($file==='') return false;
+
+
+        $label = 'id';
+
+        foreach($this->F as $v)
+        {
+            if($v['field'] === 'title')
+            {
+                $label = "v['title']";
+                break;
+            }
+            if($v['field'] === 'name')
+            {
+                $label = "v['name']";
+                break;
+            }
+        }
+        
+
+        $uri = $this->namespace ? "/{$this->namespace}/{$this->name}" : "/{$this->name}";
 
         
+    $content = "<div class=\"$this->name\">
+        
+    <h2>{$this->name}</h2>
+    
+    ";
+
+    if(!empty($this->ressource))
+    {
+        $ressource = $this->ressource;
+
+        $ressourceName = str_replace('IB_', '', $this->ressource);
+
+        $content.= "
+
+    <?php
+
+    \$$ressourceName = $ressource::getInstance();
+
+    \$options = array();
+    
+    \$total = \${$ressourceName}->getTotal(\$options);
+
+    \$pager = new IB_Pager(ITEM_PER_PAGE, \$total);
+
+
+    if(\$data$ressourceName = \${$ressourceName}->get(\$options, \$pager->number, \$pager->offset))
+    {
+        foreach(\$data$ressourceName as \$v)
+        {
+            ?>
+            <div class=\"\">
+                
+                <?php echo \$v['id']; ?>
+
+            </div>
+            <?php
+        }
+
+
+        echo view('layout/pager');
+    }
+
+    ?>
+
+        ";
+    }
+
+
+    $content.= "
+    
+</div>";
+    
+    IB_File::getInstance()->writeFile(PATH.'lib/Mobile/'.$path.$file.'.php', $content);
+    
+    return $uri;
+
 
         
     }

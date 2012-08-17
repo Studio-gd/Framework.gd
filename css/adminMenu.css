@@ -5,7 +5,7 @@ div.adminMenu
     height:30px;
     left:25px;
     width:100%;
-    .borderRadius(5px);
+    .border-radius(5px);
     z-index:5;
     color:#222;
     font-size:14px;

@@ -3,9 +3,9 @@ class Ajax_User
 {
     static function login()
     {
-        $salt = str_rot13(base64_encode($_POST['username'].'backdraft82'));
+        $salt = str_rot13(base64_encode($_POST['email'].'studio.gd'));
         
-        $md5 = str_replace($salt,'',IB_Core_Tools::c2sdecrypt(substr($_POST['md5'],2),'backdraft82'));
+        $md5 = str_replace($salt,'',IB_Core_Tools::c2sdecrypt(substr($_POST['md5'],2),'studio.gd'));
         
         $result = substr(utf8_decode(str_rot13(base64_decode(str_rot13(substr(substr($md5,0,-2),2))))),0,-2);
         
@@ -16,49 +16,35 @@ class Ajax_User
         #echo "$.displayMessage('".$password."');$.btnLoaded();";
         
         
-        if(trim($_POST['username'])==='' || trim($password)==='')
+        if(trim($_POST['email'])==='' || trim($password)==='')
         {
-            echo "$.displayMessage('".Clean::strJs(__('You must enter a username and a password'))."');$.btnLoaded();";
+            echo "$.displayMessage('".Clean::strJs(__('You must enter an email and a password'))."');$.btnLoaded();";
         }
         else
         {
-            if(IB_UserConnect::getInstance()->login($_POST['username'],$password))
+            if(IB_UserConnect::getInstance()->login($_POST['email'],$password))
             {
                 echo "refresh()";
                 return;
             }
             else
             {
-                echo '$.displayMessage("'.Clean::strJs(__('Your username or your password is incorrect')).'");$.btnLoaded();';
+                echo '$.displayMessage("'.Clean::strJs(__('Your email or your password is incorrect')).'");$.btnLoaded();';
             }
         }
         echo "$('a.recover').show()";
     }
     static function register()
     {
-        $new_username = trim($_POST['new_username']);
-        
-        if($new_username==='')
-        {
-            echo "$.displayMessage('".Clean::strJs(__("A username is required"))."');";
-        }
-        elseif(isset($new_username{16}))
-        {
-            echo "$.displayMessage('".Clean::strJs(__('Your username is too long. Maximum 16 characters'))."');";
-        }
-        elseif(!isset($new_username{2}))
-        {
-            echo "$.displayMessage('".Clean::strJs(__('Your username is too short. At least 3 characters'))."');";
-        }
-        elseif(IB_UserConnect::getInstance()->isEmailExist($_POST['new_email']))
+        if(IB_UserConnect::getInstance()->isEmailExist($_POST['email']))
         {
             echo "$.displayMessage('".Clean::strJs(__('This email already exist. Please choose another'))."');";
         }
-        elseif(!isset($_POST['new_password']{3}))
+        elseif(!isset($_POST['password']{3}))
         {
             echo "$.displayMessage('".strJs(__('Your password is too short. At least 4 characters'))."');";
         }
-        elseif(!IB_Core_Tools::isEmail($_POST['new_email']))
+        elseif(!IB_Core_Tools::isEmail($_POST['email']))
         {
             echo "$.displayMessage('".Clean::strJs(__('You must enter a valid email'))."');";
         }
@@ -87,9 +73,10 @@ class Ajax_User
 
             echo "$.displayMessage('".Clean::strJs(__('Your profile has been updated'))."');".
 
-            "display('user/".IB_User::getInstance()->readerName()."');";
+            "display('user/".reader()."');";
         }
     }
+    /*
     static function delete()
     {
         $username = Clean::username($_POST['username']);
@@ -99,7 +86,6 @@ class Ajax_User
             IB_User::getInstance()->deleteUser($user_id);
             echo __('This user has been deleted.');
         }
-        
     }
     static function recover()
     {
@@ -134,7 +120,7 @@ class Ajax_User
             }
         }
     }
-    
+    */
     static function logout()
     {
         $db = IB_DB::Connect();

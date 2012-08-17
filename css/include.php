@@ -21,6 +21,7 @@ $css = array
   'lib/tipsy',
   'lib/box',
   'lib/ui',
+  'lib/chosen',
   'contact',
   'admin',
   'adminMenu',

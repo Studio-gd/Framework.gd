@@ -1,6 +1,6 @@
 <?php
 
-if(DEV) $IB->js('lib/jquery');
+if(!USE_JS_PACK) $IB->js('lib/jquery');
 
 $IB->js('page/init')
 ->js('page/init.fluid')
@@ -16,6 +16,7 @@ $IB->js('page/init')
 ->js('lib/box')
 ->js('lib/jquery.validate.min')
 ->js('lib/additional-methods.min')
+->js('lib/chosen.jquery.min')
 #->js('lib/swfObject')
 ->js('formElement')
 ->js('page/translate', true)

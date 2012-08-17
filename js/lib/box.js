@@ -13,8 +13,6 @@ IB.box.show = function(vars, cb)
         return;
     }
     
-    $('body>span').remove(); // formLabel
-    
     if(!$('#TB_window')[0])
     {
         $('body').append('<div id="TB_window"><div id="TB_border"></div></div>'); //<p class="TB_move"></p>
@@ -83,7 +81,6 @@ IB.box.rm = function()
     $.hideTooltips();
     $(window).unbind('.box');
     //IB.box.customPosition = false;
-    $('body>span').remove(); // formLabel
 };
 IB.box.position = function(cb)
 {
@@ -105,16 +102,11 @@ IB.box.position = function(cb)
     
     if(cb)
     {
-        $('body>span').hide();
-        
         clearInterval(IB.box.positionCallback);
 
         IB.box.positionCallback = setTimeout(function()
         {
             var inputFocused = tbw.find('input:focus').blur();
-            
-            $('body>span').remove(); // formLabel
-            $.fn.formLabels();
             
             inputFocused.focus();
 

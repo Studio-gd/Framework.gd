@@ -7,7 +7,7 @@ div.pagination
     float:left;
     text-align:center;
     width:100%;
-    .borderRadius(6px);
+    .border-radius(6px);
 
     a
     {

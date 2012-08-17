@@ -1,1 +1,1 @@
-home page
+<a href="http://google.com">home page</a>

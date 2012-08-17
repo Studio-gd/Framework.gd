@@ -4,6 +4,7 @@ Class IB_UserConnect extends IB_DB
     static $s = false;
     static function getInstance(){if(!self::$s){self::$s = new IB_UserConnect();}return self::$s;}
     
+    /*
     function recover($email)
     {
         if($username = $this->selectOne('user','username',"email = '$email'"))
@@ -24,7 +25,6 @@ Class IB_UserConnect extends IB_DB
         }
         return false;
     }
-    
     function changePassword()
     {
         $username = Clean::username($_POST['username']);
@@ -44,22 +44,15 @@ Class IB_UserConnect extends IB_DB
         }
         return false;
     }
+    */
     
-    
-    function login($username, $password)
+    function login($email, $password)
     {
-        if(strpos($username,'@'))
-        {
-            $v = IB_User::getInstance()->get(array('email'=>$username),1,0,'username');
-            if(!$v) return false;
-            $username = $v['username'];
-        }
+        $email = Clean::email($email);
         
-        $username = Clean::username($username);
+        if(empty($email)) return false;
         
-        if(empty($username)) return false;
-        
-        if($r = $this->select('user',"id,salt,sha_pwd,disabled","username='$username'",1))
+        if($r = $this->select('user',"id,salt,sha_pwd,disabled","email='$email'",1))
         {
             $user_info = $r[0];
         }
@@ -67,7 +60,7 @@ Class IB_UserConnect extends IB_DB
         
         $user_id = (int) $user_info['id'];
         
-        if(sha1($user_info['salt'].$username.trim($password)) === $user_info['sha_pwd'])
+        if(sha1($user_info['salt'].$email.trim($password)) === $user_info['sha_pwd'])
         {
             $ip = IB_Core_Tools::getIp();
             
@@ -89,36 +82,37 @@ Class IB_UserConnect extends IB_DB
             }
             else
             {
-                $hash = rand(0,999).rand(0,999).date('ds').rand(0,999).substr($username,rand(0,1),rand(1,2));
+                $hash = rand(0,999).rand(0,999).date('ds').rand(0,999).substr($email,rand(0,1),rand(1,2));
                 $this->delete('connected',"user_id = $user_id");
                 $this->query("INSERT INTO connected VALUES($user_id, '".now()."', '$hash', '$ip')");
             }
 
-            setcookie('ib', base64_encode($username.'@'.crypt($username, SALT).'@'.$user_id.'@'.$hash), time()+1000000, '/');
+            setcookie('i', base64_encode($email.'%'.crypt($email, SALT).'%'.$user_id.'%'.$hash), time()+1000000, '/');
 
             return true;
         }
         
-        $this->logAttempt($username);
+        $this->logAttempt($email);
         
         return false;
     }
-
+    /*
     function isUsernameExist($username)
     {
         $username = Clean::username($username);
 
         return $this->selectOne('user','username',"username='$username'");
     }
+    */
     function isEmailExist($email)
     {
         return $this->selectOne('user','email',"email = '$email'");
     }
 
-    function processPassword($password,$username)
+    function processPassword($password, $email)
     {
         $data['salt'] = md5(rand(100000,999999).SALT);
-        $data['sha1'] = sha1($data['salt'].$username.trim($password));
+        $data['sha1'] = sha1($data['salt'].$email.trim($password));
         
         return $data;
     }
@@ -130,15 +124,12 @@ Class IB_UserConnect extends IB_DB
             return false;
         }
         
-        $username = Clean::username($_POST['new_username']);
-            
-        $email = Clean::email($_POST['new_email']);
+        $email = Clean::email($_POST['email']);
         
-        $dataPass = $this->processPassword($_POST['new_password'],$username);
+        $dataPass = $this->processPassword($_POST['password'], $email);
         
-        $this->insert('user',array
+        $this->insert('user', array
         (
-            'username'  => $username,
             'sha_pwd'   => $dataPass['sha1'],
             'salt'      => $dataPass['salt'],
             'email'     => $email,
@@ -148,16 +139,16 @@ Class IB_UserConnect extends IB_DB
             'admin'     => 1,
             'disabled'  => 0,
         ));
-    
-        Email_User::register($username, $_POST['new_password'], $email);
-        
-        $this->login($username, $_POST['new_password']);
+
+        $this->login($email, $_POST['password']);
+
+        Email_User::register($email, $_POST['password']);
     }
     
     
-    function logAttempt($username)
+    function logAttempt($email)
     {
-        $ip = getIp();
+        $ip = IB_Core_Tools::getIp();
         
         $this->query("INSERT INTO connect_log
         (
@@ -167,12 +158,12 @@ Class IB_UserConnect extends IB_DB
         )
         VALUES
         (
-            '$username',
+            '$email',
             '".now()."',
             '$ip'
         )");
         
-        if($nb = $this->countAttempt($username, $ip))
+        if($nb = $this->countAttempt($email, $ip))
         {
                 if($nb <  4) $nb =  0;
             elseif($nb <  7) $nb =  1;
@@ -195,13 +186,13 @@ Class IB_UserConnect extends IB_DB
         }
     }
     
-    function countAttempt($username, $ip)
+    function countAttempt($email, $ip)
     {
         $this->cleanAttempt();
         
         $date = relativeDate('-8 minutes');
         
-        if($r = $this->select('connect_log','logged',"username = '$username' && ip = '$ip' && logged > '$date'"))
+        if($r = $this->select('connect_log','logged',"email = '$email' && ip = '$ip' && logged > '$date'"))
         {
             return count($r);
         }

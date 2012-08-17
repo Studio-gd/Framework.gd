@@ -5,10 +5,10 @@
     {
         if(!isAdmin()) return;
 
-        if(!empty($arg[0]) && $arg[0] !== 'search' && $username = $this->checkUsername($arg[0]))
+        if(!empty($arg[0]) && $arg[0] !== 'search' )
         {
-            $this->set('username',$username)
-                 ->set('title',__('Profile').TITLE_SEPARATOR.$username)
+            $this->set('id', $arg[0])
+                 ->set('title', __('Profile'))
                  ->view('admin/menu')
                  ->view('user/profile');
         }
@@ -37,14 +37,15 @@
     }
     function edit($arg)
     {
-        if($username = $this->checkUsername($arg[0]))
+        if(!empty($arg[0]))
         {
-            $this->set('username',$username)
-                 ->set('title',__('Edit').TITLE_SEPARATOR.$username)
+            $this->set('id', $arg[0])
+                 ->set('title',__('Edit').TITLE_SEPARATOR)
                  ->view('admin/menu')
                  ->view('user/form/edit');
         }
     }
+/* 
     function recover($arg)
     {
         if($username = $this->checkUsername($arg[0]))
@@ -56,7 +57,7 @@
                  ->view('user/form/recover');
         }
     }
-    
+   
     function checkUsername($username)
     {
         if(!empty($username))
@@ -66,5 +67,5 @@
         $this->set('error', __(IB_ERROR::NO_USER_SELECTED));
         return false;
     }
-
+*/
 }

@@ -1,10 +1,10 @@
 <?php
 
-$v = self::get('value');
+$v = $P->get('value');
 
-$data = '<div class="userItem"><a class="username" href="/user/'.$v['username'].'">'
+$data = '<div class="userItem"><a class="username" href="/user/'.$v['id'].'">'
 
-.$v['username'].'</a>';
+.$v['email'].'</a>';
 
 if(isAdmin())
 {
@@ -13,7 +13,7 @@ if(isAdmin())
 
 $avatar = IB_Avatar::getInstance()->get($v['id'],'user','',$v['email']);
 
-$data.= '<img class="avatar" src="'.$avatar.'" alt="'.$v['username'].'" />';
+$data.= '<img class="avatar" src="'.$avatar.'" alt="'.$v['email'].'" />';
 
 $data.= '</div>';
 

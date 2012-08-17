@@ -36,11 +36,11 @@ $.btnLoaded = function()
 $.urlFilter = function(q)
 {
     // remove double "/" && trim "/"
-    q = q ? q.replace(/\/\//g,'/').replace(/^(\/)+|(\/)+$/g,'') : HOMEPAGE;
+    q = q ? q.replace(/\/\//g,'/').replace(/^(\/)+|(\/)+$/g,'') : HOME;
     /*
     q=q.replace('__page__',p);
     */
-    return q || HOMEPAGE;
+    return q || HOME;
 };
 
 $.isLoading = false;
@@ -89,9 +89,9 @@ display = function(q, isBack)
     }
     */
 
-    $.ajax({url:'/',data:'q=x/'+q,success:displaid});
+    $.ajax({url:'/'+q,success:displaid,type:'GET',beforeSend:function(x){x.setRequestHeader('X-Requested-With','1')}});
     $.loading();
-    firstLoad =false;
+    firstLoad = false;
 };
 
 
@@ -152,9 +152,11 @@ $(function()
     var v = decodeURIComponent($.getCookie('h'));
     $.delCookie('h');
 
-    // dbg('h = '+h);
-    // dbg('v = '+v);
+    //dbg('h = '+h);
+    //dbg('v = '+v);
     
+    if(v==='null' || v==='undefined') v = HOME;
+
     if(h && v.replace(/\//g,'') !== h.replace(/\//g,''))
     {
         display(h);
@@ -163,7 +165,7 @@ $(function()
     {
         if(html5.history)
         {
-            if(v === HOMEPAGE) v = '';
+            if(v === HOME) v = '';
 
             window.history.replaceState('', '', '/'+v);
         }
@@ -226,9 +228,9 @@ $(function()
             {
                 var pass = e.find('input[type=password]');
                 
-                var key = 'backdraft82';
+                var key = 'studio.gd';
 
-                var salt = rot13(base64_encode(e.find('input#username').val()+key));
+                var salt = rot13(base64_encode(e.find('input#email').val()+key));
 
                 var crypt = rand(10,99)+c2sencrypt(salt+rand(10,99)+rot13(base64_encode(rot13(utf8_encode(salt+pass.val()+rand(10,99)))))+rand(10,99),key);
 

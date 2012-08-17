@@ -1,12 +1,11 @@
-<?php $N = 'framework';
-
-define('URL',"http://$N/");
-define('PATH','/path/to/the/framework/');
+<?php
+define('URL',"http://framework/");
+define('PATH','/Users/Studiogd/git/frameworkgd/');
 
 define('DBHOST','localhost');
 define('DBLOGIN','root');
 define('DBPASS','root');
-define('DBNAME',$N);
+define('DBNAME','framework');
 
 define('USE_JS_PACK',0);
 define('MEMCACHE',0);
@@ -27,7 +26,7 @@ define('STATS',0); # google analytics code, ex : UA-16879056-1
 define('KEYWORDS',0);
 define('DESCRIPTION',0);
 
-define('EMAIL_FROM','"Studio.gd" <contact@studio.gd>');
+define('EMAIL_FROM','"Studio.gd" <noReply@studio.gd>');
 
 define('MULTI_LANGUE',false);
 define('DEFAULT_LANG','fr');
@@ -37,7 +36,7 @@ define('UPLOAD_FOLDER','files/');
 
 define('FILE_CACHE',false);
 define('FILE_CACHE_FOLDER',UPLOAD_FOLDER.'cache/');
-
+    
 define('AVATAR_FOLDER',UPLOAD_FOLDER.'avatar/');
 define('AVATAR_SIZE','50,90'); # avatar size (not retroactive)
 
@@ -47,7 +46,7 @@ if(LOG_ERROR) define('LOG_ERROR_PATH',PATH.UPLOAD_FOLDER.LOG_ERROR);
 define('DEBUG',0);
 if(DEBUG) define('TIME',time());
 
-define('SALT','somesalt...');
+define('SALT','!÷53_)(*&^58%$#)?');
 
 set_include_path(PATH.'lib/');
 

@@ -43,7 +43,7 @@ form
 
             &:focus
             {
-                .boxShadow(none);
+                .box-shadow(none);
             }
         }
     }
@@ -79,7 +79,7 @@ form
     {
         display:none;
         color:#555;
-        .borderRadius(6px);
+        .border-radius(6px);
         padding:4px;
         padding-top:2px;
         padding-bottom:2px;
@@ -120,8 +120,8 @@ div.customCheckbox
         color:#000;
         text-align:center;
         cursor:pointer;
-        .boxShadow(0 0 3px #aaa);
-        .borderRadius(3px);
+        .box-shadow(0 0 3px #aaa);
+        .border-radius(3px);
         background:-moz-linear-gradient(top, #fff, #eee);
         background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#eee));
         opacity:0.8;
@@ -144,7 +144,7 @@ div.customCheckbox
         b
         {
             border-color:#000;
-            .boxShadow(0 0 3px #888);
+            .box-shadow(0 0 3px #888);
             opacity:1;
         }
         span

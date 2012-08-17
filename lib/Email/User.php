@@ -1,9 +1,9 @@
 <?php
 class Email_User
 {
-    static function register($username, $password, $email)
+    static function register($email, $password)
     {
-        $m = sprintf(__('Dear %s,
+        $m = sprintf(__('Hello
 
 Thank you for registering.
 
@@ -16,9 +16,8 @@ Password: %s
 
 Best regards'),
         
-        $username,
-        URL.'user/'.$username,
-        $username,
+        URL.'user/'.reader(),
+        $email,
         $password);
 
         IB_Core_Email::create()

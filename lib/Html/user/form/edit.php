@@ -1,19 +1,19 @@
 <?php
 
-$username = $P->get('username');
+$id = $P->get('id');
 
 $data = '';
 
-$v = IB_User::getInstance()->get(array('username'=>$username),1,0,'*');
+$v = IB_User::getInstance()->get(array('id'=>$id),1,0,'*');
 
 if(!$v)
 {
-    $P->set('error',sprintf(__(IB_Error::USER_NOT_EXIST),$username));
+    $P->set('error',sprintf(__(IB_Error::USER_NOT_EXIST),$id));
     return '';
 }
 if(!isReader($v['id']))
 {
-    $P->set('error',sprintf(__(IB_Error::NO_RIGHT),'Edit: '.$username));
+    $P->set('error',sprintf(__(IB_Error::NO_RIGHT),'Edit: '.$id));
     return '';
 }
 
@@ -22,19 +22,19 @@ $firstname    = $v['firstname'];
 $lastname     = $v['lastname'];
 $email        = $v['email'];
 $sex          = $v['sexe'];
-$desc         = $v["description"];
-$homepage     = $v["homepage"];
-$name_profile = $v["name"];
-$address      = $v["address"];
-$postcode     = $v["postcode"];
-$country      = $v["country"];
-$city         = $v["city"];
+$desc         = $v['description'];
+$homepage     = $v['homepage'];
+$name_profile = $v['name'];
+$address      = $v['address'];
+$postcode     = $v['postcode'];
+$country      = $v['country'];
+$city         = $v['city'];
 
 $data.= '<form action="a=User_update">';
 
 if($avatar = IB_Avatar::getInstance()->get($v['id'],'user','',$v['email']))
 {
-    $data.= '<img class="avatar" src="'.$avatar.'" alt="'.$username.'" />';
+    $data.= '<img class="avatar" src="'.$avatar.'" />';
     
     if(preg_match('/gravatar.com/', $avatar))
     {
@@ -59,19 +59,19 @@ IB_Form_Input::create('avatar','file')
           ->label('Avatar')
           ->get().
 
-IB_Form_Input::create('profile_email')
+IB_Form_Input::create('email')
           ->label(__('Email'))
           ->value($email)
           ->validate('email')
           ->get().
 
-IB_Form_Input::create('profile_firstname')
+IB_Form_Input::create('firstname')
           ->label(__('First name'))
           ->value($firstname)
           ->required()
           ->get().
 
-IB_Form_Input::create('profile_lastname')
+IB_Form_Input::create('lastname')
           ->label(__('Last name'))
           ->value($lastname)
           ->get().
@@ -98,53 +98,47 @@ $values[] = 'male';
 $texts[]  = __('Female');
 $values[] = 'female';
 
-$data.= IB_Form_Select::create('profile_gender', $texts, $values)
+$data.= IB_Form_Select::create('gender', $texts, $values)
         ->label(__('Gender'))
         ->value($sex)
         ->get().
 
-IB_Form_Input::create('profile_birthdate')
+IB_Form_Input::create('birthdate')
           ->label(__('Birthdate'))
           ->value(_d($birthdate))
           ->calendar()
           ->maxlength(10)
           ->get().
 
-IB_Form_Textarea::create('profile_description')
+IB_Form_Textarea::create('description')
           ->label(__('Description'))
           ->value($desc)
           ->css('editor')
           ->get().
 
-IB_Form_Input::create('profile_homepage')
+IB_Form_Input::create('homepage')
           ->label(__('Website'))
           ->value($homepage)
           ->validate('url')
           ->get().
 
-IB_Form_Input::create('profile_name')
-          ->label(__('Name'))
-          ->value($name_profile)
-          ->get().
-
-IB_Form_Input::create('profile_address')
+IB_Form_Input::create('address')
           ->label(__('Address'))
           ->value($address)
           ->get().
 
-IB_Form_Input::create('profile_postcode')
+IB_Form_Input::create('postcode')
           ->label(__('Postcode'))
           ->value($postcode)
           ->validate('digits')
-          #->autocomplete('75001,75002,75003,75004,75005')
           ->get().
 
-IB_Form_Input::create('profile_country')
+IB_Form_Input::create('country')
           ->label(__('Country'))
           ->value($country)
           ->get().
 
-IB_Form_Input::create('profile_city')
+IB_Form_Input::create('city')
           ->label(__('City'))
           ->value($city)
           ->get().

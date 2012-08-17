@@ -2,6 +2,8 @@ IB.admin = {fluid:{},e:{}};
 
 IB.admin.init = function()
 {
+    $('div.adminScaffold div.fieldGroup:first').hide();
+
     //IB.admin.fluid.init();
     
     var packed = $('#packed');
@@ -13,7 +15,7 @@ IB.admin.init = function()
             packed.html(d);
         });
     }
-    
+
 
 
     $('div.adminScaffold a.btn-success').click(function()

@@ -14,8 +14,8 @@ ul.adminList
         margin-left:5px;
         border:1px solid #eee;
         border-bottom:1px solid #ddd;
-        .borderRadius(5px);
-        .boxShadow(0 0 2px #eee);
+        .border-radius(5px);
+        .box-shadow(0 0 2px #eee);
         
         a
         {

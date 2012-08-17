@@ -16,7 +16,7 @@
                 echo '<a href="/user" class="users">'.__('Users').'</a>';
             }
 
-            echo '<a href="/user/'.IB_User::readerName().'">My account</a>';
+            echo '<a href="/user/'.reader().'">My account</a>';
 
             echo '<a id="logout">'.__('Sign out').'</a>';
         }

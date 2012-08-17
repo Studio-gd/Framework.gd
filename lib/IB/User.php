@@ -13,9 +13,9 @@ class IB_User extends IB_DB
     {
         if(self::$isLoggedIn) return self::$isLoggedIn;
         
-        if($ib = empty($_COOKIE['ib']) ? false : $_COOKIE['ib'])
+        if($ib = empty($_COOKIE['i']) ? false : $_COOKIE['i'])
         {
-            $r=explode('@',base64_decode($ib));
+            $r=explode('%',base64_decode($ib));
             
             $scope = relativeDate('-10 days');
             $hash = $this->selectOne('connected','hash',"user_id=".intval($r[2])." && inserted > '$scope'",360);
@@ -24,7 +24,7 @@ class IB_User extends IB_DB
             {
                 return self::$isLoggedIn = true;
             }
-            setcookie('ib','',-1,'/'); // connection expired -> we clean cookie
+            setcookie('i','',-1,'/'); // connection expired -> we clean cookie
         }
         return self::$isLoggedIn = false;
     }
@@ -45,31 +45,32 @@ class IB_User extends IB_DB
     {
         if(self::$user_id) return self::$user_id;
         
-        if($ib = empty($_COOKIE['ib']) ? false : $_COOKIE['ib'])
+        if($ib = empty($_COOKIE['i']) ? false : $_COOKIE['i'])
         {
-            $r = $ar=explode('@',base64_decode($ib));
+            $r = $ar=explode('%', base64_decode($ib));
           
             $user_id = (int) $r[2];
                       
-            if($username = $this->selectOne('user','username',"id=$user_id", 18000))
+            if($email = $this->selectOne('user','email',"id = $user_id", 18000))
             {
-                if($username===$r[0]) return self::$user_id = $user_id;
+                if($email === $r[0]) return self::$user_id = $user_id;
             }
         }
-        return self::$user_id=false;
+        return self::$user_id = false;
     }
+    /*
     static function readerName()
     {
         if(self::$username) return self::$username;
         
-        if($ib = empty($_COOKIE['ib']) ? false : $_COOKIE['ib'])
+        if($ib = empty($_COOKIE['i']) ? false : $_COOKIE['i'])
         {
-            $r=explode('@',base64_decode($ib));
-            return self::$username= preg_replace("[^A-Za-z0-9@_]",'',$r[0]);
+            $r=explode('%', base64_decode($ib));
+            return self::$username = preg_replace("[^A-Za-z0-9@_]",'',$r[0]);
         }
         return self::$username=false;
     }
-    
+    */
     function getEmail($user_id=false)
     {
         if(!$user_id) $user_id = $this->reader();
@@ -86,37 +87,37 @@ class IB_User extends IB_DB
         }
     }
 
-
     function updateUser()
     {
         $id = $this->reader();
         
         IB_Avatar::getInstance()->add($id);
         
+        $email = Clean::email($_POST['email']);
+
         $changes = array
         (
-            'email'       => Clean::email($_POST['profile_email']),
-            'firstname'   => Clean::email($_POST['profile_firstname']),
-            'lastname'    => Clean::email($_POST['profile_lastname']),
-            'description' => $_POST['profile_description'],
-            'sexe'        => Clean::string($_POST['profile_gender']),
-            'birthdate'   => Clean::string($_POST['profile_birthdate']),
-            'homepage'    => Clean::url($_POST['profile_homepage']),
-            'name'        => Clean::string($_POST['profile_name']),
-            'address'     => Clean::string($_POST['profile_address']),
-            'postcode'    => Clean::string($_POST['profile_postcode']),
-            'country'     => Clean::string($_POST['profile_country']),
-            'city'        => Clean::string($_POST['profile_city']),
+            'email'       => $email,
+            'firstname'   => Clean::string($_POST['firstname']),
+            'lastname'    => Clean::string($_POST['lastname']),
+            'description' => $_POST['description'],
+            'sexe'        => Clean::string($_POST['gender']),
+            'birthdate'   => Clean::string($_POST['birthdate']),
+            'homepage'    => Clean::url($_POST['homepage']),
+            'address'     => Clean::string($_POST['address']),
+            'postcode'    => Clean::string($_POST['postcode']),
+            'country'     => Clean::string($_POST['country']),
+            'city'        => Clean::string($_POST['city']),
         );
         
         if(!empty($_POST['new_password']))
         {
-            $newPassword = IB_UserConnect::getInstance()->processPassword($_POST['new_password'],$this->readerName());
+            $newPassword = IB_UserConnect::getInstance()->processPassword($_POST['new_password'], $email);
             
             $changes = array_merge($changes,array('sha_pwd' => $newPassword['sha1'], 'salt' => $newPassword['salt']));
         }
         
-        $this->update('user',$changes,"id = $id");
+        $this->update('user', $changes, "id = $id");
     }
     
     function getName($user_id)
@@ -125,7 +126,7 @@ class IB_User extends IB_DB
     }
     function getFullName($user_id)
     {
-        return $this->selectOne('user','name',"id=".intval($user_id),40000);
+        return $this->selectOne('user','firstname',"id=".intval($user_id),40000);
     }
     function isOnline($user_id)
     {
@@ -137,17 +138,17 @@ class IB_User extends IB_DB
     {
         return $this->selectOne('user_online','user_id',"user_id = $user_id ORDER BY `inserted` DESC",300);
     }
+    /*
     function getUserIdFromName($name)
     {
         return $this->selectOne('user','id',"username = '$name'",40000);
     }
-    
+    */
     function buildQuery($options)
     {
         $default = array
         (
             'id'       => false,
-            'username' => false,
             'email'    => false,
             'search'   => false,
             'order'    => " ORDER BY join_date DESC",
@@ -159,10 +160,6 @@ class IB_User extends IB_DB
         if($opt['id'])
         {
             $w.=' && id = '.$opt['id'];
-        }
-        elseif($opt['username'])
-        {
-            $w.=" && username = '".$opt['username']."'";
         }
         elseif($opt['email'])
         {
@@ -203,8 +200,8 @@ class IB_User extends IB_DB
     
                     $w?$w.=' && ': $w='';
     
-                    $w.= " (username LIKE '%%$v%%' || name LIKE '%%$v%%' || description LIKE '%%$v%%' || email LIKE '%%$v%%' ||".
-                         " username LIKE '%%$v2%%' || name LIKE '%%$v2%%' || description LIKE '%%$v2%%' || email LIKE '%%$v2%%')";
+                    $w.= " (firstname LIKE '%%$v%%' || lastname LIKE '%%$v%%' || description LIKE '%%$v%%' || email LIKE '%%$v%%' ||".
+                         "  firstname LIKE '%%$v2%%' || lastname LIKE '%%$v%%' || description LIKE '%%$v2%%' || email LIKE '%%$v2%%')";
                 }
             }
             else // one string search
@@ -213,14 +210,14 @@ class IB_User extends IB_DB
     
                 $w?$w.=' && ':$w='';
     
-                $w.= " (username LIKE '%%$s%%' || name LIKE '%%$s%%' || description LIKE '%%$s%%' || email LIKE '%%$s%%' ||".
-                     " username LIKE '%%$v2%%' || name LIKE '%%$v2%%' || description LIKE '%%$v2%%' || email LIKE '%%$v2%%')";
+                $w.= " (firstname LIKE '%%$s%%' || lastname LIKE '%%$v%%' || description LIKE '%%$s%%' || email LIKE '%%$s%%' ||".
+                     "  firstname LIKE '%%$v2%%' || lastname LIKE '%%$v%%' || description LIKE '%%$v2%%' || email LIKE '%%$v2%%')";
             }
         }
         return $w.$opt['order'];
     }
     
-    function get($options,$number=0,$offset=0,$select='id,username,name,join_date,city,country,postcode,address,homepage,birthdate,language,sexe')
+    function get($options,$number=0,$offset=0,$select='*')
     {
         $d = $this->select('user',$select,$this->buildQuery($options),$number,$offset);
         

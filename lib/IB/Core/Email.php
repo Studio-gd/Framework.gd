@@ -8,12 +8,12 @@ Class IB_Core_Email
 
     static function create()
     {
-        return new IB_Form_Input();
+        return new IB_Core_Email();
     }
 
     function recipient($recipient)
     {
-        $this->recipient = $recipient; return $recipient;
+        $this->recipient = $recipient; return $this;
     }
     function from($from)
     {
@@ -28,7 +28,7 @@ Class IB_Core_Email
         $this->message = $message; return $this;
     }
 
-    static function send()
+    function send()
     {
         if(!$this->from) $this->from = EMAIL_FROM;
 

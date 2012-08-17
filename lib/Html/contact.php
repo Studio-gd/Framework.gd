@@ -28,7 +28,12 @@ IB_Form_Textarea::create('message')
              ->label(__('Message'))
              ->get().
 
-button(__('Send')).cancel();
+div
+(
+    'groupBtn',
+    button(__('Send')).cancel()
+);
+
 
 ?>
 </form>
